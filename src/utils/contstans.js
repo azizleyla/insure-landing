@@ -15,3 +15,16 @@ export const navItems = [
     path: "/resources",
   },
 ];
+
+export const questionObj = {
+  question: {
+    content: "Which of the options would best complete the code below?",
+  },
+  rightAnswerCount: 1,
+  answers: [
+    { answerContent: "Class Components", correct: true },
+    { answerContent: "Functional Components", correct: false },
+    { answerContent: "Class Components", correct: false },
+    { answerContent: "Class Components", correct: false },
+  ],
+};
