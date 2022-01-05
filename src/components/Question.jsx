@@ -5,20 +5,40 @@ import styled from "styled-components";
 const Question = ({ question: initialQuestion }) => {
   const [question, setQuestion] = useState({
     isAnswered: false,
+    isClickedContent: "",
     ...initialQuestion,
   });
 
-  const [selectedAnswer, setSelectedAnswer] = useState("");
-  const [isShowDesc, setIsShowDesc] = useState(false);
-  const [className, setClassName] = useState("btn");
-  const handleClick = (answer) => {
-    setSelectedAnswer(answer);
-    if (answer.correct) {
-      setClassName("btn correct");
+  const handleClick = (clickedAnswerContent) => {
+    const rightAnswerContent = question.answers.find(
+      (a) => a.isTrue,
+    ).content;
+
+    if (rightAnswerContent === clickedAnswerContent) {
+      let newQuestionObj = {
+        ...question,
+        isAnswered: true,
+        isClickedContent: clickedAnswerContent,
+        answers: question.answers.map((a) =>
+          a.content === clickedAnswerContent
+            ? { ...a, isClicked: true }
+            : a,
+        ),
+      };
+      setQuestion(newQuestionObj);
     } else {
-      setClassName("btn wrong");
+      let newQuestionObj = {
+        ...question,
+        isAnswered: true,
+        isClickedContent: clickedAnswerContent,
+        answers: question.answers.map((a) =>
+          a.content === clickedAnswerContent
+            ? { ...a, isClicked: true }
+            : a,
+        ),
+      };
+      setQuestion(newQuestionObj);
     }
-    setIsShowDesc(true);
   };
 
   return (
@@ -29,9 +49,17 @@ const Question = ({ question: initialQuestion }) => {
       <div className="answers-container">
         {question.answers.map((answer, index) => (
           <button
-            disabled={selectedAnswer && selectedAnswer.id !== answer.id}
-            className="btn"
-            onClick={() => handleClick(answer)}
+            disabled={question.isAnswered && !answer.isTrue}
+            className={
+              question.isAnswered
+                ? answer.isTrue
+                  ? "btn correct"
+                  : answer.content === question.isClickedContent
+                  ? "btn wrong"
+                  : "btn"
+                : "btn"
+            }
+            onClick={() => handleClick(answer.content)}
             key={index}
           >
             {answer.content}

@@ -12,19 +12,23 @@ const questions = [
       {
         content: "var a=5",
         isTrue: false,
+        isClicked: false,
       },
       {
         content: "let a=5",
         isTrue: false,
+        isClicked: false,
         explanation: "ich of the options would best comp",
       },
       {
         content: "const a=5",
         isTrue: true,
+        isClicked: false,
       },
       {
         content: "a=5",
         isTrue: false,
+        isClicked: false,
       },
     ],
   },
