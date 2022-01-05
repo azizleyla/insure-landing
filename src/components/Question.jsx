@@ -10,35 +10,20 @@ const Question = ({ question: initialQuestion }) => {
   });
 
   const handleClick = (clickedAnswerContent) => {
-    const rightAnswerContent = question.answers.find(
-      (a) => a.isTrue,
-    ).content;
+    // const rightAnswerContent = question.answers.find(
+    //   (a) => a.isTrue,
+    // ).content;
+    const answers = question.answers.map((a) =>
+      a.content === clickedAnswerContent ? { ...a, isClicked: true } : a,
+    );
 
-    if (rightAnswerContent === clickedAnswerContent) {
-      let newQuestionObj = {
-        ...question,
-        isAnswered: true,
-        isClickedContent: clickedAnswerContent,
-        answers: question.answers.map((a) =>
-          a.content === clickedAnswerContent
-            ? { ...a, isClicked: true }
-            : a,
-        ),
-      };
-      setQuestion(newQuestionObj);
-    } else {
-      let newQuestionObj = {
-        ...question,
-        isAnswered: true,
-        isClickedContent: clickedAnswerContent,
-        answers: question.answers.map((a) =>
-          a.content === clickedAnswerContent
-            ? { ...a, isClicked: true }
-            : a,
-        ),
-      };
-      setQuestion(newQuestionObj);
-    }
+    let newQuestionObj = {
+      ...question,
+      isAnswered: true,
+      isClickedContent: clickedAnswerContent,
+      answers,
+    };
+    setQuestion(newQuestionObj);
   };
 
   return (
