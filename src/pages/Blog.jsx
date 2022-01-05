@@ -2,10 +2,38 @@ import React from "react";
 import styled from "styled-components";
 import Question from "../components/Question";
 
+const questions = [
+  {
+    question: {
+      content: "Which of the options would best complete the code below?",
+    },
+    rightAnswerCount: 1,
+    answers: [
+      {
+        content: "var a=5",
+        isTrue: false,
+      },
+      {
+        content: "let a=5",
+        isTrue: false,
+        explanation: "ich of the options would best comp",
+      },
+      {
+        content: "const a=5",
+        isTrue: true,
+      },
+      {
+        content: "a=5",
+        isTrue: false,
+      },
+    ],
+  },
+];
+
 const Blog = () => {
   return (
     <Wrapper>
-      <Question />
+      <Question question={questions[0]} />
     </Wrapper>
   );
 };

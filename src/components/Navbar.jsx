@@ -26,7 +26,7 @@ const Navbar = () => {
         </div>
         <ul className={isOpenNavbar ? "navbar-menu show" : "navbar-menu"}>
           {navItems.map((navItem) => (
-            <li className="navbar-item">
+            <li className="navbar-item" key={navItem.label}>
               <Link className="navbar-link trans-04" to={navItem.path}>
                 {navItem.label}
               </Link>

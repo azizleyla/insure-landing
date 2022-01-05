@@ -1,9 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import { questionObj } from "../utils/contstans";
 
-const Question = () => {
+const Question = ({ question: initialQuestion }) => {
+  const [question, setQuestion] = useState({
+    isAnswered: false,
+    ...initialQuestion,
+  });
+
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [isShowDesc, setIsShowDesc] = useState(false);
   const [className, setClassName] = useState("btn");
@@ -16,33 +20,22 @@ const Question = () => {
     }
     setIsShowDesc(true);
   };
+
   return (
     <Wrapper>
       <div className="question-container">
-        <h4>Which of the options would best complete the code below?</h4>
+        <h4>{question.question.content}</h4>
       </div>
       <div className="answers-container">
-        {questionObj.answers.map((answer, index) => (
-          <>
-            <button
-              disabled={selectedAnswer && selectedAnswer.id !== answer.id}
-              className={
-                selectedAnswer === answer
-                  ? className
-                  : answer.correct !== selectedAnswer.correct &&
-                    selectedAnswer !== answer
-                  ? "btn correct"
-                  : "btn"
-              }
-              onClick={() => handleClick(answer)}
-              key={index}
-            >
-              {answer.answerContent}
-            </button>
-            {isShowDesc && answer === selectedAnswer && (
-              <p>{answer.desc}</p>
-            )}
-          </>
+        {question.answers.map((answer, index) => (
+          <button
+            disabled={selectedAnswer && selectedAnswer.id !== answer.id}
+            className="btn"
+            onClick={() => handleClick(answer)}
+            key={index}
+          >
+            {answer.content}
+          </button>
         ))}
       </div>
     </Wrapper>
